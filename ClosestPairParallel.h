@@ -55,9 +55,10 @@ float boundary_merge(const std::vector<Point> & points, const float left_distanc
 	std::vector<Point> M(points.size());
 	std::vector<Point>::iterator iter = std::copy_if(points.begin(), points.end(), M.begin(), [&](Point p) {return p.x >= median - min_dist && p.x <= median + min_dist; });
 	M.resize(std::distance(M.begin(), iter));
-	for (size_t i = 0; i+7 < M.size(); ++i)
+	int size = M.size();
+	for (int i = 0; i < size; ++i)
 	{
-		for (size_t j = 1; j < 8; ++j)
+		for (int j = 1; j < std::min(8,size-i); ++j)
 		{
 			if (min_dist > points_distance(M[i], M[i + j]))
 			{
